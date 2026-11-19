@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - smart-deals-india-github-upload.zip
+      - smart-deals-upload.zip
 
 permissions:
   contents: write
@@ -19,9 +19,9 @@ jobs:
 
       - name: Unpack the Next.js project into repository root
         run: |
-          test -f smart-deals-india-github-upload.zip
-          unzip -o smart-deals-india-github-upload.zip -d .
-          rm smart-deals-india-github-upload.zip
+          test -f smart-deals-upload.zip
+          unzip -o smart-deals-upload.zip -d .
+          rm smart-deals-upload.zip
 
       - name: Commit restored project files
         run: |
