@@ -5,6 +5,7 @@ import Link from "next/link";
 import { demoDeals } from "@/lib/demo-data";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Deal, DealCategory } from "@/lib/types";
+import { UiIcon, type IconName } from "@/components/ui-icon";
 
 type Filter = "all" | DealCategory;
 type SortMode = "newest" | "saving";
@@ -15,7 +16,7 @@ const filters: { id: Filter; label: string }[] = [
   { id: "travel", label: "Travel" },
   { id: "bills", label: "Bills & recharge" },
 ];
-const artSymbols: Record<DealCategory, string> = { shopping: "✳", food: "♨", travel: "↗", bills: "⌁" };
+const artSymbols: Record<DealCategory, IconName> = { shopping: "sparkles", food: "utensils", travel: "plane", bills: "rupee" };
 
 function fallbackImage(category: DealCategory) { return ({ shopping: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85", food: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85", travel: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85", bills: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85" })[category]; }
 
@@ -97,14 +98,14 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
           const saving = savingPercent(deal);
           const hasEvidence = /history-backed|verified price history/i.test(deal.trustLabel) && !/pending|not enough/i.test(deal.trustLabel);
           return <article className="deal-card" key={deal.id}>
-            <div className={`deal-art art-${index % 4} ${deal.imageUrl || deal.isDemo ? "has-image" : "image-missing"}`}>{deal.imageUrl ? <img className="deal-product-image" src={deal.imageUrl} alt={deal.title} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; event.currentTarget.parentElement?.classList.add("image-missing"); }} /> : deal.isDemo ? <img className="deal-product-image" src={fallbackImage(deal.category)} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; event.currentTarget.parentElement?.classList.add("image-missing"); }} /> : null}<span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true">{artSymbols[deal.category]}</span><span className="art-caption">{deal.merchant}</span></div>
+            <div className={`deal-art art-${index % 4} ${deal.imageUrl || deal.isDemo ? "has-image" : "image-missing"}`}>{deal.imageUrl ? <img className="deal-product-image" src={deal.imageUrl} alt={deal.title} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; event.currentTarget.parentElement?.classList.add("image-missing"); }} /> : deal.isDemo ? <img className="deal-product-image" src={fallbackImage(deal.category)} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; event.currentTarget.parentElement?.classList.add("image-missing"); }} /> : null}<span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true"><UiIcon name={artSymbols[deal.category]} size={27} strokeWidth={1.65} /></span><span className="art-caption">{deal.merchant}</span></div>
             <div className="deal-card-body">
               <div className="deal-meta"><span>{deal.merchant}</span><span className="demo-label">{deal.isDemo ? "SAMPLE" : "LISTED"}</span></div>
               <h3>{deal.title}</h3><p className="deal-description">{deal.description}</p>
               <div className="price-row"><div>{deal.offerPrice !== null ? <><strong>{formatPrice(deal.offerPrice)}</strong>{deal.originalPrice !== null && <del>{formatPrice(deal.originalPrice)} listed reference</del>}</> : <strong className="coupon-price">Coupon / offer</strong>}</div>{saving !== null && <span className="discount-tag">{saving}% lower*</span>}{saving === null && deal.discountLabel && <span className="discount-tag">{deal.discountLabel}</span>}</div>
               <div className={`trust-row ${hasEvidence ? "is-trustworthy" : ""}`}><span className="trust-dot" />{deal.trustLabel}</div>
-              <div className="source-line">SOURCE · {deal.sourceLabel}</div>{deal.sourceUrl && <a className="source-link" href={deal.sourceUrl} target="_blank" rel="noopener noreferrer">View source evidence ↗</a>}
-              {deal.couponCode && !deal.isDemo ? <div className="coupon-code-row"><code>{deal.couponCode}</code><button type="button" onClick={() => { void navigator.clipboard?.writeText(deal.couponCode ?? ""); }}>Copy code</button></div> : deal.affiliateUrl && !deal.isDemo ? <a className="deal-link" href={deal.affiliateUrl} target="_blank" rel="noopener noreferrer sponsored">Open merchant offer <span>↗</span></a> : <span className="deal-link muted-link">{deal.isDemo ? "Preview card · not for purchase" : "Merchant link not added"}</span>}
+              <div className="source-line"><UiIcon name="shield" size={11} /> <span>SOURCE · {deal.sourceLabel}</span></div>{deal.sourceUrl && <a className="source-link" href={deal.sourceUrl} target="_blank" rel="noopener noreferrer">View source evidence <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>}
+              {deal.couponCode && !deal.isDemo ? <div className="coupon-code-row"><code>{deal.couponCode}</code><button type="button" onClick={() => { void navigator.clipboard?.writeText(deal.couponCode ?? ""); }}>Copy code</button></div> : deal.affiliateUrl && !deal.isDemo ? <a className="deal-link" href={deal.affiliateUrl} target="_blank" rel="noopener noreferrer sponsored">Open merchant offer <UiIcon name="arrow" size={13} /></a> : <span className="deal-link muted-link">{deal.isDemo ? "Preview card · not for purchase" : "Merchant link not added"}</span>}
             </div>
           </article>;
         })}
