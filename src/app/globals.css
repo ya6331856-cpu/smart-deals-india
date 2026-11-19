@@ -430,3 +430,12 @@ html,body{background:#f7f8fa!important;color:#17212b!important}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* Personal discovery controls */
+.discovery-note{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 18px;padding:10px 13px;border:1px solid #e3eee7;border-radius:13px;background:linear-gradient(110deg,#f5fbf7,#fff);color:#52715f;font-size:11px}
+.discovery-note>span{display:inline-flex;align-items:center;gap:7px;font-weight:700}
+.discovery-note>span svg{color:#168257}
+.discovery-note button{border:0;background:transparent;color:#168257;font:inherit;font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.discovery-note button:focus-visible{outline:2px solid #168257;outline-offset:3px;border-radius:4px}
+@media(max-width:520px){.discovery-note{align-items:flex-start;font-size:10px}.discovery-note button{font-size:10px}}
