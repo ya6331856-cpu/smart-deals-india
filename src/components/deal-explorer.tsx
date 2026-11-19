@@ -105,7 +105,7 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
         <div className="explorer-tools"><label className="search-field"><span aria-hidden="true">⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search product, brand or offer" aria-label="Search deals" /></label><select className="sort-select" value={sort} onChange={(event) => setSort(event.target.value as SortMode)} aria-label="Sort offers"><option value="newest">Newest first</option><option value="saving">Highest saving</option></select></div>
       </div>}
       {loading && <p className="loading-note">Checking the deal database…</p>}
-      <div className="discovery-note"><span><UiIcon name="sparkles" size={14} /> {discoveryEvents.length ? "Your feed is learning from your browsing" : "Your browsing can shape your deal feed"}</span><button type="button" onClick={() => { if (personalizationOn) { clearDiscoveryEvents(); setDiscoveryEvents([]); setSeenIds([]); } setPersonalizationOn((value) => !value); }}>{personalizationOn ? "Reset / pause" : "Turn on"}</button></div>
+      <div className="discovery-note"><span><UiIcon name="sparkles" size={14} /> {!personalizationOn ? "Personal recommendations are paused" : discoveryEvents.length ? "Your feed is learning from your browsing" : "Your browsing can shape your deal feed"}</span><button type="button" onClick={() => { if (personalizationOn) { clearDiscoveryEvents(); setDiscoveryEvents([]); setSeenIds([]); } setPersonalizationOn((value) => !value); }}>{personalizationOn ? "Reset / pause" : "Turn on"}</button></div>
       <div className="deal-grid">
         {visible.slice(0, compact ? 4 : 18).map((deal, index) => {
           const saving = savingPercent(deal);
