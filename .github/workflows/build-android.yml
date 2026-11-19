@@ -45,6 +45,9 @@ jobs:
       - name: Generate Android project
         run: npx cap add android
 
+      - name: Generate Smart Deals India app icon and splash assets
+        run: npx capacitor-assets generate --android --iconBackgroundColor "#f4faf6" --splashBackgroundColor "#f4faf6"
+
       - name: Sync Capacitor
         run: npx cap sync android
 
