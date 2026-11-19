@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: { type: "website", siteName: "Smart Deals India", title: "Smart Deals India — Loot Radar", description: "Loot pakdo. Price samajh kar kharido." },
 };
 
-export const viewport: Viewport = { themeColor: "#0b0e0f", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#f4faf6", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
