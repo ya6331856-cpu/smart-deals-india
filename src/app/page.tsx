@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { DealExplorer } from "@/components/deal-explorer";
+import { UiIcon } from "@/components/ui-icon";
 
 const categories = [
-  { title: "Mobiles & tech", note: "Phones, audio and gadgets", href: "/deals", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=520&q=80", tone: "mint" },
-  { title: "Fashion", note: "Everyday style and footwear", href: "/deals", image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=520&q=80", tone: "peach" },
-  { title: "Home & kitchen", note: "Useful upgrades for home", href: "/deals", image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=520&q=80", tone: "blue" },
-  { title: "Beauty & care", note: "Personal care and wellness", href: "/deals", image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=520&q=80", tone: "pink" },
-  { title: "Food offers", note: "Dining and delivery savings", href: "/food", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=520&q=80", tone: "yellow" },
-  { title: "Travel deals", note: "Plan trips for less", href: "/deals", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=520&q=80", tone: "lavender" },
+  { icon: "smartphone" as const, title: "Mobiles & tech", note: "Phones, audio and gadgets", href: "/deals", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=520&q=80", tone: "mint" },
+  { icon: "shirt" as const, title: "Fashion", note: "Everyday style and footwear", href: "/deals", image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=520&q=80", tone: "peach" },
+  { icon: "house" as const, title: "Home & kitchen", note: "Useful upgrades for home", href: "/deals", image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=520&q=80", tone: "blue" },
+  { icon: "sparkles" as const, title: "Beauty & care", note: "Personal care and wellness", href: "/deals", image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=520&q=80", tone: "pink" },
+  { icon: "utensils" as const, title: "Food offers", note: "Dining and delivery savings", href: "/food", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=520&q=80", tone: "yellow" },
+  { icon: "plane" as const, title: "Travel deals", note: "Plan trips for less", href: "/deals", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=520&q=80", tone: "lavender" },
 ];
 
 const collections = [
@@ -38,23 +39,23 @@ export default function HomePage() {
       </section>
 
       <section className="store-category-section">
-        <div className="store-section-head"><div><span className="store-eyebrow">EXPLORE THE STORE</span><h2>Shop by category</h2><p>Find offers across the things you actually use.</p></div><Link href="/deals" className="store-view-all">View all deals <span>→</span></Link></div>
+        <div className="store-section-head"><div><span className="store-eyebrow">EXPLORE THE STORE</span><h2>Shop by category</h2><p>Find offers across the things you actually use.</p></div><Link href="/deals" className="store-view-all">View all deals <UiIcon name="arrow" size={13} /></Link></div>
         <div className="store-category-grid">
           {categories.map((category) => (
             <Link href={category.href} className={`store-category-card ${category.tone}`} key={category.title}>
-              <div className="store-category-image"><img src={category.image} alt="" loading="lazy" /></div>
+              <div className="store-category-image"><img src={category.image} alt="" loading="lazy" /><span className="category-icon-bubble"><UiIcon name={category.icon} size={22} /></span></div>
               <div className="store-category-text"><b>{category.title}</b><span>{category.note}</span></div>
-              <span className="store-category-arrow">↗</span>
+              <span className="store-category-arrow"><UiIcon name="arrow" size={15} /></span>
             </Link>
           ))}
         </div>
       </section>
 
       <section className="store-feature-strip">
-        <div><span className="feature-icon">⌕</span><span><b>Source-first offers</b><small>Know where an offer comes from</small></span></div>
-        <div><span className="feature-icon">↘</span><span><b>Price watch</b><small>Track your target price</small></span></div>
-        <div><span className="feature-icon">♡</span><span><b>Your watchlist</b><small>Keep an eye on products</small></span></div>
-        <div><span className="feature-icon">₹</span><span><b>Made for India</b><small>Shopping, food and more</small></span></div>
+        <div><span className="feature-icon"><UiIcon name="shield" size={19} /></span><span><b>Source-first offers</b><small>Know where an offer comes from</small></span></div>
+        <div><span className="feature-icon"><UiIcon name="chart" size={19} /></span><span><b>Price watch</b><small>Track your target price</small></span></div>
+        <div><span className="feature-icon"><UiIcon name="heart" size={19} /></span><span><b>Your watchlist</b><small>Keep an eye on products</small></span></div>
+        <div><span className="feature-icon"><UiIcon name="rupee" size={19} /></span><span><b>Made for India</b><small>Shopping, food and more</small></span></div>
       </section>
 
       <div className="store-deal-wrap"><DealExplorer compact /></div>
@@ -62,7 +63,7 @@ export default function HomePage() {
       <section className="store-collections">
         {collections.map((item) => (
           <article className={`store-collection-card ${item.tone}`} key={item.title}>
-            <div className="store-collection-copy"><span className="store-eyebrow">{item.eyebrow}</span><h2>{item.title}</h2><p>{item.copy}</p><Link href={item.href}>{item.action} <span>↗</span></Link></div>
+            <div className="store-collection-copy"><span className="store-eyebrow">{item.eyebrow}</span><h2>{item.title}</h2><p>{item.copy}</p><Link href={item.href}>{item.action} <UiIcon name="arrow" size={13} /></Link></div>
             <div className="store-collection-image"><img src={item.image} alt="" loading="lazy" /></div>
           </article>
         ))}
