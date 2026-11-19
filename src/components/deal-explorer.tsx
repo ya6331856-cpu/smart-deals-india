@@ -6,6 +6,7 @@ import { demoDeals } from "@/lib/demo-data";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Deal, DealCategory } from "@/lib/types";
 import { UiIcon, type IconName } from "@/components/ui-icon";
+import { clearDiscoveryEvents, getDiscoveryScore, readDiscoveryEvents, saveDiscoveryEvent, type DiscoveryEvent } from "@/lib/discovery";
 
 type Filter = "all" | DealCategory;
 type SortMode = "newest" | "saving";
@@ -37,6 +38,17 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
   const [deals, setDeals] = useState<Deal[]>(demoDeals);
   const [dataMode, setDataMode] = useState<"demo" | "database">("demo");
   const [loading, setLoading] = useState(true);
+  const [discoveryEvents, setDiscoveryEvents] = useState<DiscoveryEvent[]>([]);
+  const [personalizationOn, setPersonalizationOn] = useState(true);
+  const [seenIds, setSeenIds] = useState<string[]>([]);
+
+  useEffect(() => { setDiscoveryEvents(readDiscoveryEvents()); }, []);
+
+  function recordInterest(type: DiscoveryEvent["type"], category: DealCategory, merchant?: string) {
+    if (!personalizationOn) return;
+    const event: DiscoveryEvent = { type, category, merchant, at: Date.now() };
+    setDiscoveryEvents(saveDiscoveryEvent(event));
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -89,15 +101,16 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
         <span className={`data-pill ${dataMode === "database" ? "is-live" : "is-demo"}`}>{dataMode === "database" ? "DATABASE OFFERS" : "PREVIEW MODE · SAMPLE CARDS"}</span>
       </div>
       {!compact && <div className="explorer-controls">
-        <div className="filter-row" role="tablist" aria-label="Filter offers">{filters.map((item) => <button key={item.id} type="button" role="tab" aria-selected={filter === item.id} className={`filter-chip ${filter === item.id ? "active" : ""}`} onClick={() => setFilter(item.id)}>{item.label}</button>)}</div>
+        <div className="filter-row" role="tablist" aria-label="Filter offers">{filters.map((item) => <button key={item.id} type="button" role="tab" aria-selected={filter === item.id} className={`filter-chip ${filter === item.id ? "active" : ""}`} onClick={() => { setFilter(item.id); if (item.id !== "all") recordInterest("category", item.id); }}>{item.label}</button>)}</div>
         <div className="explorer-tools"><label className="search-field"><span aria-hidden="true">⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search product, brand or offer" aria-label="Search deals" /></label><select className="sort-select" value={sort} onChange={(event) => setSort(event.target.value as SortMode)} aria-label="Sort offers"><option value="newest">Newest first</option><option value="saving">Highest saving</option></select></div>
       </div>}
       {loading && <p className="loading-note">Checking the deal database…</p>}
+      <div className="discovery-note"><span><UiIcon name="sparkles" size={14} /> {discoveryEvents.length ? "Your feed is learning from your browsing" : "Your browsing can shape your deal feed"}</span><button type="button" onClick={() => { if (personalizationOn) { clearDiscoveryEvents(); setDiscoveryEvents([]); setSeenIds([]); } setPersonalizationOn((value) => !value); }}>{personalizationOn ? "Reset / pause" : "Turn on"}</button></div>
       <div className="deal-grid">
         {visible.slice(0, compact ? 4 : 18).map((deal, index) => {
           const saving = savingPercent(deal);
           const hasEvidence = /history-backed|verified price history/i.test(deal.trustLabel) && !/pending|not enough/i.test(deal.trustLabel);
-          return <article className="deal-card" key={deal.id}>
+          return <article className="deal-card" key={deal.id} data-deal-id={deal.id} data-deal-category={deal.category}>
             <div className={`deal-art art-${index % 4} ${deal.imageUrl || deal.isDemo ? "has-image" : "image-missing"}`}>{deal.imageUrl ? <img className="deal-product-image" src={deal.imageUrl} alt={deal.title} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; event.currentTarget.parentElement?.classList.add("image-missing"); }} /> : deal.isDemo ? <img className="deal-product-image" src={fallbackImage(deal.category)} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; event.currentTarget.parentElement?.classList.add("image-missing"); }} /> : null}<span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true"><UiIcon name={artSymbols[deal.category]} size={27} strokeWidth={1.65} /></span><span className="art-caption">{deal.merchant}</span></div>
             <div className="deal-card-body">
               <div className="deal-meta"><span>{deal.merchant}</span><span className="demo-label">{deal.isDemo ? "SAMPLE" : "LISTED"}</span></div>
@@ -105,7 +118,7 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
               <div className="price-row"><div>{deal.offerPrice !== null ? <><strong>{formatPrice(deal.offerPrice)}</strong>{deal.originalPrice !== null && <del>{formatPrice(deal.originalPrice)} listed reference</del>}</> : <strong className="coupon-price">Coupon / offer</strong>}</div>{saving !== null && <span className="discount-tag">{saving}% lower*</span>}{saving === null && deal.discountLabel && <span className="discount-tag">{deal.discountLabel}</span>}</div>
               <div className={`trust-row ${hasEvidence ? "is-trustworthy" : ""}`}><span className="trust-dot" />{deal.trustLabel}</div>
               <div className="source-line"><UiIcon name="shield" size={11} /> <span>SOURCE · {deal.sourceLabel}</span></div>{deal.sourceUrl && <a className="source-link" href={deal.sourceUrl} target="_blank" rel="noopener noreferrer">View source evidence <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>}
-              {deal.couponCode && !deal.isDemo ? <div className="coupon-code-row"><code>{deal.couponCode}</code><button type="button" onClick={() => { void navigator.clipboard?.writeText(deal.couponCode ?? ""); }}>Copy code</button></div> : deal.affiliateUrl && !deal.isDemo ? <a className="deal-link" href={deal.affiliateUrl} target="_blank" rel="noopener noreferrer sponsored">Open merchant offer <UiIcon name="arrow" size={13} /></a> : <span className="deal-link muted-link">{deal.isDemo ? "Preview card · not for purchase" : "Merchant link not added"}</span>}
+              {deal.couponCode && !deal.isDemo ? <div className="coupon-code-row"><code>{deal.couponCode}</code><button type="button" onClick={() => { void navigator.clipboard?.writeText(deal.couponCode ?? ""); }}>Copy code</button></div> : deal.affiliateUrl && !deal.isDemo ? <a className="deal-link" href={deal.affiliateUrl} target="_blank" rel="noopener noreferrer sponsored" onClick={() => recordInterest("merchant", deal.category, deal.merchant)}>Open merchant offer <UiIcon name="arrow" size={13} /></a> : <span className="deal-link muted-link">{deal.isDemo ? "Preview card · not for purchase" : "Merchant link not added"}</span>}
             </div>
           </article>;
         })}
