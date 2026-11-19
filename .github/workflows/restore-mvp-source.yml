@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - smart-deals-upload.zip
 
 permissions:
   contents: write
