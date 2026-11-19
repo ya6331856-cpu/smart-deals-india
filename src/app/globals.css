@@ -369,3 +369,64 @@ html,body{background:#f7f8fa!important;color:#17212b!important}
  .footer-trust-note{font-size:8px}
  .footer-bottom>span:last-child{font-size:7px}
 }
+
+
+/* Signature motion language: Deal Radar */
+@keyframes radar-rotate{to{transform:rotate(360deg)}}
+@keyframes radar-counter{to{transform:rotate(-360deg)}}
+@keyframes radar-ping{0%{transform:scale(.72);opacity:.75}75%,100%{transform:scale(1.35);opacity:0}}
+@keyframes radar-blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(32,166,109,.25)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(32,166,109,0)}}
+@keyframes float-card{0%,100%{translate:0 0;rotate:-7deg}50%{translate:0 -9px;rotate:-5deg}}
+@keyframes float-card-two{0%,100%{translate:0 0;rotate:6deg}50%{translate:0 8px;rotate:8deg}}
+@keyframes deal-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes soft-glow{0%,100%{opacity:.38}50%{opacity:.8}}
+@keyframes scan-sweep{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.store-hero-art{isolation:isolate}
+.radar-orbit{position:absolute;z-index:0;left:50%;top:50%;width:340px;height:340px;border:1px solid rgba(22,122,82,.12);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.radar-orbit:before,.radar-orbit:after{content:"";position:absolute;inset:26px;border:1px dashed rgba(22,122,82,.14);border-radius:50%}
+.radar-orbit:after{inset:65px;border-style:solid;opacity:.75}
+.radar-orbit-one{animation:radar-rotate 38s linear infinite}
+.radar-orbit-one:before{border-color:rgba(22,122,82,.17)}
+.radar-orbit-one span{position:absolute;left:50%;top:-4px;width:8px;height:8px;border-radius:50%;background:#159c68;box-shadow:0 0 0 6px rgba(21,156,104,.11),0 0 18px rgba(21,156,104,.55)}
+.radar-orbit-one i{position:absolute;right:16%;bottom:16%;width:6px;height:6px;border-radius:50%;background:#e5ad37;box-shadow:0 0 0 5px rgba(229,173,55,.13)}
+.radar-orbit-one b{position:absolute;left:13%;bottom:24%;width:5px;height:5px;border-radius:50%;background:#167a52}
+.radar-orbit-two{width:255px;height:255px;border-style:dotted;animation:radar-counter 54s linear infinite}
+.radar-orbit-two span{position:absolute;right:12%;top:22%;width:7px;height:7px;border-radius:50%;background:#e5ad37;box-shadow:0 0 0 5px rgba(229,173,55,.12)}
+.radar-status{position:absolute;z-index:5;left:50%;top:8px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid rgba(205,229,214,.95);border-radius:999px;background:rgba(255,255,255,.91);box-shadow:0 7px 22px rgba(26,70,45,.08);color:#648073;font-size:7px;font-weight:950;letter-spacing:1.1px;white-space:nowrap;backdrop-filter:blur(12px)}
+.radar-status i{width:6px;height:6px;border-radius:50%;background:#1aa56b;animation:radar-blink 2s ease-in-out infinite}
+.radar-status b{color:#168257;font-size:7px}
+.hero-image-main{position:relative;z-index:1;animation:soft-glow 7s ease-in-out infinite}
+.hero-image-main:after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.65);border-radius:inherit;pointer-events:none}
+.hero-float-one{animation:float-card 6s ease-in-out infinite}
+.hero-float-two{animation:float-card-two 7s ease-in-out infinite}
+.hero-sticker{z-index:4;animation:float-card-two 8s ease-in-out infinite}
+.store-hero-copy{animation:deal-rise .75s cubic-bezier(.2,.7,.2,1) both}
+.store-category-card{animation:deal-rise .6s cubic-bezier(.2,.7,.2,1) both}
+.store-category-card:nth-child(2){animation-delay:.05s}
+.store-category-card:nth-child(3){animation-delay:.1s}
+.store-category-card:nth-child(4){animation-delay:.15s}
+.store-category-card:nth-child(5){animation-delay:.2s}
+.store-category-card:nth-child(6){animation-delay:.25s}
+.store-deal-wrap .deal-card{animation:deal-rise .55s cubic-bezier(.2,.7,.2,1) both}
+.store-deal-wrap .deal-card:nth-child(2){animation-delay:.06s}
+.store-deal-wrap .deal-card:nth-child(3){animation-delay:.12s}
+.store-deal-wrap .deal-card:nth-child(4){animation-delay:.18s}
+.store-primary,.store-secondary,.store-view-all,.store-collection-copy>a{transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.store-primary:hover,.store-secondary:hover,.store-view-all:hover,.store-collection-copy>a:hover{transform:translateY(-2px)}
+.top-ribbon .ribbon-pulse{animation:radar-blink 2.2s ease-in-out infinite}
+.store-section-head h2{position:relative}
+.store-food-banner{position:relative;overflow:hidden}
+.store-food-banner:after{content:"";position:absolute;width:180px;height:180px;right:-90px;top:-90px;border:1px solid rgba(216,120,53,.16);border-radius:50%;box-shadow:0 0 0 18px rgba(216,120,53,.035),0 0 0 38px rgba(216,120,53,.025);pointer-events:none}
+@media(max-width:700px){
+ .radar-orbit{width:230px;height:230px}
+ .radar-orbit-two{width:175px;height:175px}
+ .radar-status{top:1px;padding:6px 9px;font-size:6px}
+ .hero-image-main{animation:none}
+ .hero-float-one{animation:float-card 7s ease-in-out infinite}
+ .hero-float-two{animation:float-card-two 8s ease-in-out infinite}
+ .store-category-card:nth-child(n){animation-delay:0s}
+ .store-deal-wrap .deal-card:nth-child(n){animation-delay:0s}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
