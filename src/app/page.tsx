@@ -18,7 +18,7 @@ const collections = [
 
 export default function HomePage() {
   return (
-    <main className="storefront">
+    <div className="storefront">
       <section className="store-hero">
         <div className="store-hero-copy">
           <span className="store-tag"><i /> INDIA-WIDE DEAL DISCOVERY</span>
@@ -79,6 +79,6 @@ export default function HomePage() {
         <p>We distinguish sample previews from published offers, show the source behind a listing and only call a price trend verified when enough dated observations support it.</p>
         <Link href="/price-tracker">How price tracking works ↗</Link>
       </section>
-    </main>
+    </div>
   );
 }
