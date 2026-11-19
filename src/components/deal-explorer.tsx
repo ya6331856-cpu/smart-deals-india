@@ -17,6 +17,8 @@ const filters: { id: Filter; label: string }[] = [
 ];
 const artSymbols: Record<DealCategory, string> = { shopping: "✳", food: "♨", travel: "↗", bills: "⌁" };
 
+function fallbackImage(category: DealCategory) { return ({ shopping: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85", food: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85", travel: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85", bills: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85" })[category]; }
+
 function formatPrice(value: number | null) {
   if (value === null) return null;
   return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(value);
@@ -42,14 +44,14 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
       if (!supabase) { setLoading(false); return; }
       const now = new Date().toISOString();
       const [dealResult, couponResult] = await Promise.all([
-        supabase.from("deals").select("id,title,description,category,offer_type,offer_price,original_price,discount_label,trust_label,source_label,source_url,affiliate_url,created_at,merchants(name)").eq("status", "active").lte("starts_at", now).gt("ends_at", now).order("created_at", { ascending: false }).limit(36),
+        supabase.from("deals").select("id,title,description,category,offer_type,offer_price,original_price,discount_label,trust_label,source_label,source_url,affiliate_url,image_url,created_at,merchants(name)").eq("status", "active").lte("starts_at", now).gt("ends_at", now).order("created_at", { ascending: false }).limit(36),
         supabase.from("coupons").select("id,title,description,category,code,source_label,source_url,created_at,merchants(name)").eq("status", "active").lte("starts_at", now).gt("ends_at", now).order("created_at", { ascending: false }).limit(24),
       ]);
       if (cancelled) return;
       if (!dealResult.error || !couponResult.error) {
         const mappedDeals = (dealResult.data ?? []).map((row: any) => ({
           id: String(row.id), title: row.title, description: row.description ?? "", category: row.category as DealCategory,
-          merchant: row.merchants?.name ?? "Merchant", offerPrice: row.offer_price === null ? null : Number(row.offer_price),
+          merchant: row.merchants?.name ?? "Merchant", imageUrl: row.image_url ?? null, offerPrice: row.offer_price === null ? null : Number(row.offer_price),
           originalPrice: row.original_price === null ? null : Number(row.original_price), discountLabel: row.discount_label,
           trustLabel: row.trust_label ?? "Price evidence pending", sourceLabel: row.source_label ?? "Source not provided", sourceUrl: row.source_url ?? null,
           affiliateUrl: row.affiliate_url, offerType: row.offer_type, isDemo: false,
@@ -95,7 +97,7 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
           const saving = savingPercent(deal);
           const hasEvidence = /history-backed|verified price history/i.test(deal.trustLabel) && !/pending|not enough/i.test(deal.trustLabel);
           return <article className="deal-card" key={deal.id}>
-            <div className={`deal-art art-${index % 4}`}><span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true">{artSymbols[deal.category]}</span><span className="art-caption">{deal.merchant}</span></div>
+            <div className={`deal-art art-${index % 4}`}>{deal.imageUrl ? <img className="deal-product-image" src={deal.imageUrl} alt={deal.title} loading="lazy" /> : <img className="deal-product-image" src={fallbackImage(deal.category)} alt="" loading="lazy" />}<span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true">{artSymbols[deal.category]}</span><span className="art-caption">{deal.merchant}</span></div>
             <div className="deal-card-body">
               <div className="deal-meta"><span>{deal.merchant}</span><span className="demo-label">{deal.isDemo ? "SAMPLE" : "LISTED"}</span></div>
               <h3>{deal.title}</h3><p className="deal-description">{deal.description}</p>
