@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BrandGlyph, UiIcon } from "@/components/ui-icon";
-import { BrandGlyph, UiIcon } from "@/components/ui-icon";
 
 const links = [
   { href: "/deals", label: "Shopping loot" },
