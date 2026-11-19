@@ -121,7 +121,7 @@ export function TruePriceChecker() {
         <aside className="true-price-result" aria-live="polite">
           <div className="true-price-result-head"><span><i/> YOUR CHECKOUT BREAKDOWN</span><span className="true-price-local">LOCAL CALCULATION</span></div>
           {!result.ready ? (
-            <div className="true-price-empty"><span className="true-price-empty-icon"><UiIcon name="calculator" size={26}/></span><strong>Enter the listed price</strong><p>Your real checkout estimate will appear here.</p></div>
+            <div className="true-price-empty"><span className="true-price-empty-icon"><UiIcon name="chart" size={26}/></span><strong>Enter the listed price</strong><p>Your real checkout estimate will appear here.</p></div>
           ) : (
             <>
               <div className="true-price-main-total"><small>Amount to pay now</small><strong>{money(result.checkout)}</strong><span>At checkout · before any later cashback</span></div>
@@ -134,7 +134,7 @@ export function TruePriceChecker() {
               </div>
               <div className="true-price-cashback"><span>Estimated cost after eligible cashback</span><strong>{money(result.afterCashback)}</strong><small>Includes {money(result.postPurchase)} cashback later, only if the offer tracks and pays out.</small></div>
               <div className="true-price-saving-line"><UiIcon name="check" size={14}/> Instant discount applied: {money(result.instantSaving)}</div>
-              <button className="true-price-copy" type="button" onClick={copyBreakdown}><UiIcon name={copied ? "check" : "copy"} size={15}/>{copied ? "Breakdown copied" : "Copy price breakdown"}</button>
+              <button className="true-price-copy" type="button" onClick={copyBreakdown}><UiIcon name={copied ? "check" : "bag"} size={15}/>{copied ? "Breakdown copied" : "Copy price breakdown"}</button>
             </>
           )}
           <p className="true-price-disclaimer">Estimate only. This tool does not fetch or verify retailer prices, apply offers, or guarantee cashback. Final amount depends on your pincode, seller, payment method and eligibility.</p>
