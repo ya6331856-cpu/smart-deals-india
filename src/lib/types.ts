@@ -6,6 +6,7 @@ export type Deal = {
   description: string;
   category: DealCategory;
   merchant: string;
+  imageUrl?: string | null;
   offerPrice: number | null;
   originalPrice: number | null;
   discountLabel: string | null;
