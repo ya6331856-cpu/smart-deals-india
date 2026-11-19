@@ -1,0 +1,1 @@
+export default function OfflinePage() { return <div className="page-container subpage"><div className="empty-state offline-state"><strong>You are offline.</strong><span>Reconnect to refresh offers and price information. Cached pages may be out of date.</span></div></div>; }

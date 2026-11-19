@@ -1,0 +1,52 @@
+Smart Deals India source inventory
+
+Root:
+- package.json, tsconfig.json, next.config.ts
+- .env.example, .gitignore, README.md
+
+Documentation:
+- docs/PRODUCT_SPEC.md
+- docs/DATA_INTEGRATION_PLAN.md
+
+PWA/public:
+- public/icon.svg, public/icon-192.png, public/icon-512.png
+- public/sw.js
+- src/app/manifest.ts, src/app/offline/page.tsx
+
+Application routes:
+- src/app/page.tsx
+- src/app/deals/page.tsx
+- src/app/food/page.tsx
+- src/app/price-tracker/page.tsx
+- src/app/login/page.tsx
+- src/app/admin/page.tsx
+- src/app/affiliate-disclosure/page.tsx
+- src/app/privacy/page.tsx
+- src/app/terms/page.tsx
+- src/app/robots.ts, src/app/sitemap.ts
+
+Components:
+- src/components/site-header.tsx
+- src/components/site-footer.tsx
+- src/components/deal-explorer.tsx
+- src/components/admin-dashboard.tsx
+- src/components/service-worker-register.tsx
+- src/components/watchlist-panel.tsx
+
+Libraries:
+- src/lib/types.ts
+- src/lib/demo-data.ts
+- src/lib/supabase/client.ts
+
+Database:
+- supabase/schema.sql
+
+Security notes:
+- .env.local and all secret files are excluded from the package.
+- Demo deal cards are illustrative only.
+- Real retailer feeds, scheduled ingestion and push/email dispatch are not enabled.
+
+supabase/functions/sync-flipkart-offers/index.ts
+supabase/cron/sync-flipkart-offers.sql
+supabase/migrations/20261120000000_flipkart_feed_identity.sql
+docs/REAL_DATA_SETUP.md
