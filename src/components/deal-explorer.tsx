@@ -45,7 +45,7 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
       const now = new Date().toISOString();
       const [dealResult, couponResult] = await Promise.all([
         supabase.from("deals").select("id,title,description,category,offer_type,offer_price,original_price,discount_label,trust_label,source_label,source_url,affiliate_url,image_url,created_at,merchants(name)").eq("status", "active").lte("starts_at", now).gt("ends_at", now).order("created_at", { ascending: false }).limit(36),
-        supabase.from("coupons").select("id,title,description,category,code,source_label,source_url,created_at,merchants(name)").eq("status", "active").lte("starts_at", now).gt("ends_at", now).order("created_at", { ascending: false }).limit(24),
+        supabase.from("coupons").select("id,title,description,category,code,image_url,source_label,source_url,created_at,merchants(name)").eq("status", "active").lte("starts_at", now).gt("ends_at", now).order("created_at", { ascending: false }).limit(24),
       ]);
       if (cancelled) return;
       if (!dealResult.error || !couponResult.error) {
@@ -58,7 +58,7 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
         } satisfies Deal));
         const mappedCoupons = (couponResult.data ?? []).map((row: any) => ({
           id: `coupon-${row.id}`, title: row.title, description: row.description ?? "Review the merchant terms before using this code.", category: row.category as DealCategory,
-          merchant: row.merchants?.name ?? "Merchant", offerPrice: null, originalPrice: null, discountLabel: "Coupon available",
+          merchant: row.merchants?.name ?? "Merchant", imageUrl: row.image_url ?? null, offerPrice: null, originalPrice: null, discountLabel: "Coupon available",
           trustLabel: "Active coupon · check terms", sourceLabel: row.source_label ?? "Source not provided", sourceUrl: row.source_url ?? null, affiliateUrl: null,
           couponCode: row.code, offerType: "coupon" as const, isDemo: false,
         } satisfies Deal));
@@ -93,11 +93,11 @@ export function DealExplorer({ initialFilter = "all", compact = false }: { initi
       </div>}
       {loading && <p className="loading-note">Checking the deal database…</p>}
       <div className="deal-grid">
-        {visible.slice(0, compact ? 3 : 18).map((deal, index) => {
+        {visible.slice(0, compact ? 4 : 18).map((deal, index) => {
           const saving = savingPercent(deal);
           const hasEvidence = /history-backed|verified price history/i.test(deal.trustLabel) && !/pending|not enough/i.test(deal.trustLabel);
           return <article className="deal-card" key={deal.id}>
-            <div className={`deal-art art-${index % 4}`}>{deal.imageUrl ? <img className="deal-product-image" src={deal.imageUrl} alt={deal.title} loading="lazy" /> : <img className="deal-product-image" src={fallbackImage(deal.category)} alt="" loading="lazy" />}<span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true">{artSymbols[deal.category]}</span><span className="art-caption">{deal.merchant}</span></div>
+            <div className={`deal-art art-${index % 4}`}>{deal.imageUrl ? <img className="deal-product-image" src={deal.imageUrl} alt={deal.title} loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} /> : deal.isDemo ? <img className="deal-product-image" src={fallbackImage(deal.category)} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} /> : null}<span className="art-kicker">{deal.isDemo ? "ILLUSTRATIVE DROP" : `${deal.category.toUpperCase()} DROP`}</span><span className="art-symbol" aria-hidden="true">{artSymbols[deal.category]}</span><span className="art-caption">{deal.merchant}</span></div>
             <div className="deal-card-body">
               <div className="deal-meta"><span>{deal.merchant}</span><span className="demo-label">{deal.isDemo ? "SAMPLE" : "LISTED"}</span></div>
               <h3>{deal.title}</h3><p className="deal-description">{deal.description}</p>
