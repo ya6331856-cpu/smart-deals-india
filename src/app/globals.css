@@ -281,3 +281,5 @@ html,body{background:#f7f8fa!important;color:#17212b!important}
  .store-deal-wrap .deal-art{height:105px}
  .store-collection-copy h2{font-size:18px}
 }
+
+.store-deal-wrap .deal-art.has-image .art-symbol{display:none}.store-deal-wrap .deal-art.image-missing .art-symbol{display:block;color:#167a52;filter:none;text-shadow:none}
