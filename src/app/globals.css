@@ -19,3 +19,85 @@
 .source-link{display:inline-flex;margin-top:7px;color:#a5d82d;font-size:8px;font-weight:850;letter-spacing:.2px}.source-link:hover{color:#e2ff9c;text-decoration:underline}
 
 .history-insight{margin-top:18px;padding:15px;border:1px solid #2d3933;border-radius:14px;background:rgba(6,10,10,.35)}.history-insight-head{display:flex;flex-direction:column;gap:7px}.history-insight-head b{font-size:11px;color:var(--lime)}.history-chart{display:block;width:100%;height:76px;margin:12px 0 4px;overflow:visible}.history-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.history-stats span{display:grid;gap:4px}.history-stats small{font-size:7px;color:#7f8d83;letter-spacing:1px;font-weight:900}.history-stats b{font-size:12px}.history-note{font-size:8px;line-height:1.6;color:#7e8c82;margin:12px 0 0}
+
+
+/* Smart Deals India - clean white storefront refresh */
+:root{--bg:#f7f8fa;--surface:#ffffff;--surface-2:#f1f4f7;--surface-3:#e9eef2;--ink:#17212b;--muted:#667482;--muted-2:#8793a0;--line:#e3e8ed;--lime:#167a52;--lime-dark:#116443;--orange:#e87832;--pink:#df5b86;--blue:#3984bb;--shadow:0 18px 48px rgba(24,39,55,.10);--radius:20px}
+html,body{background:#f7f8fa!important;color:#17212b!important}
+.top-ribbon{background:#e9f6ef;color:#176343}
+.site-header{background:rgba(255,255,255,.94);border-bottom:1px solid #e5eaf0;box-shadow:0 4px 18px rgba(20,35,50,.04)}
+.brand-mark,.kicker-live{background:#167a52;color:#fff}
+.brand-copy>span,.desktop-nav a:hover,.login-link:hover{color:#167a52}
+.brand-copy small{color:#83909d}
+.desktop-nav a,.login-link{color:#586675}
+.header-cta,.primary-button{background:#167a52;color:#fff}
+.header-cta:hover,.primary-button:hover{background:#116443;box-shadow:0 10px 26px rgba(22,122,82,.18)}
+.hero-shell{padding-top:54px}
+.hero-copy h1,.subpage-heading h1,.login-card h1{color:#182530}
+.hero-copy h1 em,.subpage-heading h1 em,.login-card h1 em,.trust-feature-main h2 em,.section-heading-row h2 em,.why-section h2 em{color:#167a52}
+.hero-kicker,.eyebrow{color:#167a52}
+.hero-lede,.hero-proof,.section-subtitle,.section-aside,.quick-stats div{color:#657382}
+.secondary-button{color:#334454;border-color:#d8e0e7}
+.hero-bottom-line,.quick-stats{border-color:#e1e7ec;color:#71808d}
+.radar-grid{border-color:rgba(22,122,82,.15);background:radial-gradient(circle,rgba(22,122,82,.08),transparent 68%)}
+.radar-ring{border-color:rgba(22,122,82,.14)}
+.radar-center{background:#167a52;color:#fff;box-shadow:0 0 30px rgba(22,122,82,.2)}
+.radar-point{background:#167a52;box-shadow:0 0 0 6px rgba(22,122,82,.10),0 0 18px rgba(22,122,82,.4)}
+.loot-preview-card,.floating-chip{background:#fff;border:1px solid #e2e8ed;box-shadow:0 24px 60px rgba(24,39,55,.13);color:#182530}
+.preview-product-art{background:#eef3f6}
+.preview-product small,.preview-brand,.preview-price-line small,.preview-foot,.floating-chip small{color:#71808d}
+.preview-price-line,.preview-foot{border-color:#e5eaef}
+.preview-save{background:#e8f5ee;color:#167a52}
+.preview-pill{background:#e8f5ee;color:#167a52}
+.floating-chip>span{background:#e8f5ee;color:#167a52}
+.floating-chip b{color:#1c2b37}
+.category-tile,.deal-card{background:#fff;border:1px solid #e3e9ee;box-shadow:0 5px 20px rgba(25,42,58,.045)}
+.category-tile:hover,.deal-card:hover{border-color:#a8d3bd;box-shadow:0 14px 30px rgba(25,42,58,.09)}
+.category-tile b,.deal-card h3{color:#1c2935}
+.category-tile small,.deal-description,.deal-meta{color:#71808d}
+.category-icon{background:#e8f5ee;color:#167a52}
+.category-1 .category-icon,.category-2 .category-icon,.category-3 .category-icon{background:#f0f4f7;color:#4c7895}
+.section-aside b,.section-heading-row h2 em{color:#167a52}
+.filter-chip,.search-field,.sort-select{background:#fff;border-color:#dce4ea;color:#596a79}
+.filter-chip:hover,.filter-chip.active{background:#167a52;border-color:#167a52;color:#fff}
+.search-field input{color:#17212b}.search-field input::placeholder{color:#9aa5af}
+.deal-art{background:#eef2f5}
+.deal-art:before,.deal-art:after{border-color:rgba(255,255,255,.55)}
+.deal-product-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.deal-art:after{pointer-events:none}
+.art-kicker{background:rgba(255,255,255,.88);color:#314252;padding:6px 8px;border-radius:6px}
+.art-caption{background:rgba(255,255,255,.86);color:#3b4b59;padding:5px 7px;border-radius:5px}
+.deal-card-body{background:#fff}
+.demo-label{background:#fff2e8;color:#b65d22}
+.price-row{border-color:#e7ecf0}
+.price-row del{color:#8b98a4}
+.trust-row,.source-line,.demo-disclaimer{color:#758391}
+.trust-dot{background:#d4a34b}
+.source-link{color:#167a52}
+.source-link:hover{color:#116443}
+.discount-tag{background:#e8f5ee;color:#167a52}
+.data-pill{border-color:#dbe4e9;color:#667684}
+.data-pill.is-live{color:#167a52;border-color:#b9ddc9;background:#edf8f1}
+.data-pill.is-demo{color:#b65d22;border-color:#f1d3bd;background:#fff6ef}
+.trust-feature-grid{border-color:#e4e9ee}
+.trust-feature-main p:not(.eyebrow),.trust-feature-list small{color:#687887}
+.trust-feature-list>div{border-color:#e4e9ee}
+.tracker-cta{background:#176b4c;color:#fff}
+.tracker-cta p:not(.eyebrow){color:#d8e9df}
+.light-button{background:#fff;color:#176b4c;border-color:#fff}
+.site-footer{background:#fff;border-top:1px solid #e4e9ee;color:#263542}
+.footer-brand-block p,.footer-links a,.footer-bottom{color:#71808d}
+.mobile-nav{background:rgba(255,255,255,.97);border-top:1px solid #e3e8ed}
+.mobile-nav a{color:#536373}
+.mobile-nav a:hover{color:#167a52}
+.subpage,.login-page,.legal-page{color:#17212b}
+.login-card,.admin-form,.admin-list,.tracker-panel,.watchlist-panel,.watchlist-saved{background:#fff;border-color:#e2e8ed;color:#17212b;box-shadow:0 8px 26px rgba(20,35,50,.05)}
+.login-card p,.admin-guard,.watchlist-form-wrap>p{color:#687887}
+.watchlist-form input,.watchlist-form select{background:#fff;border-color:#dce4ea;color:#17212b}
+.watchlist-saved{background:#f8fafb}
+.coupon-code-row{border-color:#e5eaef}
+.coupon-code-row code{background:#edf8f1;color:#167a52;border-color:#b9ddc9}
+.coupon-code-row button{color:#167a52;border-color:#b9ddc9}
+.history-insight{background:#f8fafb;border-color:#e1e8ed}
+.history-insight-head b{color:#167a52}
+@media(max-width:640px){.hero-shell{padding-top:30px}.hero-grid{gap:14px}.hero-visual{height:330px}.radar-grid{width:300px;height:300px}.loot-preview-card{width:min(340px,90%)}}
