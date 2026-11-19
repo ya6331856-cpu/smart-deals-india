@@ -25,10 +25,10 @@ export default function HomePage() {
           <h1>Good deals.<br /><em>Clear decisions.</em></h1>
           <p>Discover shopping offers, food savings and price drops in one place. Check the source, understand the offer and buy when it makes sense.</p>
           <div className="store-hero-actions">
-            <Link href="/deals" className="store-primary">Explore deals <span>↗</span></Link>
+            <Link href="/deals" className="store-primary">Explore deals <UiIcon name="arrow" size={15} /></Link>
             <Link href="/price-tracker" className="store-secondary">Track a product</Link>
           </div>
-          <div className="store-assurance"><span>✓</span> Offer sources shown · No made-up price history</div>
+          <div className="store-assurance"><span><UiIcon name="check" size={12} /></span> Offer sources shown · No made-up price history</div>
         </div>
         <div className="store-hero-art">
           <div className="hero-image-main"><img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=85" alt="Electronics and gadgets on a desk" fetchPriority="high" /></div>
@@ -77,7 +77,7 @@ export default function HomePage() {
       <section className="store-trust-row">
         <div><span className="store-eyebrow">A BETTER WAY TO SHOP</span><h2>Discounts are easy to show.<br /><em>Proof is what matters.</em></h2></div>
         <p>We distinguish sample previews from published offers, show the source behind a listing and only call a price trend verified when enough dated observations support it.</p>
-        <Link href="/price-tracker">How price tracking works ↗</Link>
+        <Link href="/price-tracker">How price tracking works <UiIcon name="arrow" size={13} /></Link>
       </section>
     </div>
   );
