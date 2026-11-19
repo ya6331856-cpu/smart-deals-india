@@ -26,7 +26,7 @@ export default function HomePage() {
           <p>Discover shopping offers, food savings and price drops in one place. Check the source, understand the offer and buy when it makes sense.</p>
           <div className="store-hero-actions">
             <Link href="/deals" className="store-primary">Explore deals <UiIcon name="arrow" size={15} /></Link>
-            <Link href="/price-tracker" className="store-secondary">Track a product</Link>
+            <Link href="/deal-check" className="store-secondary">Check your final price</Link>
           </div>
           <div className="store-assurance"><span><UiIcon name="check" size={12} /></span> Offer sources shown · No made-up price history</div>
         </div>
@@ -56,6 +56,20 @@ export default function HomePage() {
         <div><span className="feature-icon"><UiIcon name="chart" size={19} /></span><span><b>Price watch</b><small>Track your target price</small></span></div>
         <div><span className="feature-icon"><UiIcon name="heart" size={19} /></span><span><b>Your watchlist</b><small>Keep an eye on products</small></span></div>
         <div><span className="feature-icon"><UiIcon name="rupee" size={19} /></span><span><b>Made for India</b><small>Shopping, food and more</small></span></div>
+      </section>
+
+      <section className="true-price-promo">
+        <div className="true-price-promo-copy">
+          <span className="store-eyebrow"><UiIcon name="shield" size={13}/> THE SMART DEALS DIFFERENCE</span>
+          <h2>Discount dekhkar nahi.<br/><em>Final bill samajhkar kharido.</em></h2>
+          <p>Coupon, eligible bank offer aur delivery charges ke baad kitna pay karna padega? Cashback ko alag rakho. Checkout se pehle apna real estimate dekho.</p>
+          <Link href="/deal-check" className="store-primary">Check my final price <UiIcon name="arrow" size={14}/></Link>
+        </div>
+        <div className="true-price-promo-points">
+          <div><span>01</span><b>Actual checkout estimate</b><small>Instant discounts minus, charges plus</small></div>
+          <div><span>02</span><b>Cashback kept separate</b><small>Future reward is not instant saving</small></div>
+          <div><span>03</span><b>Price proof as we grow</b><small>Sources and dated history when available</small></div>
+        </div>
       </section>
 
       <div className="store-deal-wrap"><DealExplorer compact /></div>
