@@ -5,6 +5,7 @@ const links = [
   { href: "/deals", label: "Shopping loot" },
   { href: "/food", label: "Food offers" },
   { href: "/price-tracker", label: "Price watch" },
+  { href: "/deal-check", label: "True price check" },
 ];
 
 export function SiteHeader() {
