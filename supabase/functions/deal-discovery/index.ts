@@ -83,8 +83,11 @@ Deno.serve(async (req) => {
 
       const startsAt = iso(item.startTime);
       const endsAt = iso(item.endTime);
-      const live = item.availability === "LIVE" && Boolean(startsAt && endsAt)
+      const feedWindowActive = item.availability === "LIVE" && Boolean(startsAt && endsAt)
         && new Date(startsAt!).getTime() <= now && new Date(endsAt!).getTime() > now;
+      // The affiliate offers feed confirms that an offer exists, but does not
+      // verify the exact product/variant price or customer eligibility.
+      // Keep it in review until those independent checks are implemented.
       const externalId = await hash(item.url);
       const categoryText = String(item.category ?? "").toLowerCase();
       const category = categoryText.includes("food") ? "food"
@@ -108,7 +111,7 @@ Deno.serve(async (req) => {
         source_label: "Flipkart Affiliate Offers API",
         source_url: "https://affiliate.flipkart.com/",
         affiliate_url: item.url,
-        status: live ? "active" : "draft",
+        status: "draft",
         starts_at: startsAt ?? started,
         ends_at: endsAt ?? new Date(now + 24 * 60 * 60 * 1000).toISOString(),
       }, { onConflict: "source_external_id" }).select("id").single();
@@ -119,12 +122,12 @@ Deno.serve(async (req) => {
         product_url: item.url, offer_price: null, original_price: null,
         starts_at: startsAt, ends_at: endsAt, source_verified: true,
         product_match_verified: false, eligibility_verified: false,
-        confidence_score: live ? 80 : 55, review_status: live ? "published" : "pending",
+        confidence_score: feedWindowActive ? 40 : 25, review_status: "pending",
         deal_id: deal.id, raw_payload: raw, last_seen_at: started, updated_at: started,
       }, { onConflict: "source_key,external_id" });
       if (queueError) throw new Error(queueError.message);
       normalized++;
-      if (live) published++; else review++;
+      review++;
     }
 
     const finished = new Date().toISOString();
@@ -138,7 +141,7 @@ Deno.serve(async (req) => {
 
     return json({
       status: "success", fetched: offers.length, normalized, autoPublished: published, sentToReview: review,
-      note: "Live source offers are published automatically. Product price, exact variant and eligibility are not represented as verified unless separately confirmed.",
+      note: "Official feed presence and offer window are recorded, but no item is auto-published until exact product/variant price and eligibility are independently verified.",
       connectedSources: ["flipkart"],
       awaitingConnection: (sources ?? []).filter((s) => s.source_key !== "flipkart").map((s) => s.display_name),
       checkedAt: finished,
