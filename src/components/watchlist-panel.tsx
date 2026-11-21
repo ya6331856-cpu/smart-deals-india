@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type Product = { id: string; name: string; brand: string | null; merchants?: { name: string } | null };
-type WatchRow = { id: string; target_price: number | null; products: { name: string; brand: string | null } | null };
+type WatchRow = { id: string; target_price: number | null; products: { name: string; brand: string | null; slug: string | null } | null };
 type PricePoint = { price: number; observed_at: string; source_label: string };
 
 export function WatchlistPanel() {
@@ -31,7 +31,7 @@ export function WatchlistPanel() {
       setUserId(user.id);
       const [productResult, watchResult] = await Promise.all([
         client.from("products").select("id,name,brand,merchants(name)").eq("status", "published").order("name").limit(100),
-        client.from("watchlists").select("id,target_price,products(name,brand)").order("created_at", { ascending: false }),
+        client.from("watchlists").select("id,target_price,products(name,brand,slug)").order("created_at", { ascending: false }),
       ]);
       if (cancelled) return;
       if (!productResult.error) setProducts((productResult.data ?? []) as unknown as Product[]);
@@ -101,5 +101,5 @@ export function WatchlistPanel() {
       {products.length ? <form className="watchlist-form" onSubmit={addWatch}><label>Product<select required value={productId} onChange={(e) => setProductId(e.target.value)}><option value="">Choose a product</option>{products.map((product) => <option value={product.id} key={product.id}>{product.name}{product.brand ? ` · ${product.brand}` : ""}</option>)}</select></label><label>Alert me at (₹)<input inputMode="decimal" type="number" min="1" step="1" placeholder="e.g. 2500" value={targetPrice} onChange={(e) => setTargetPrice(e.target.value)} /></label><button className="primary-button" type="submit" disabled={busy || !productId}>{busy ? "Saving…" : "Save price watch"} <span>↗</span></button></form> : <div className="empty-state"><strong>No products in the catalogue yet.</strong><span>Once reviewed offers are published, you can add them here.</span></div>}
       {message && <p className="admin-message" role="status">{message}</p>}
       {productId && <div className="history-insight"><div className="history-insight-head"><span className="panel-kicker">30-DAY PRICE CHECK</span><b>{historySignal}</b></div>{historyLoading ? <p className="empty-admin">Loading saved price observations…</p> : pricePoints.length ? <><svg className="history-chart" viewBox="0 0 300 76" role="img" aria-label="Recorded product price history"><line x1="4" y1="66" x2="296" y2="66" stroke="#33403a" strokeWidth="1"/><polyline points={chartPoints} fill="none" stroke="#caff4b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg><div className="history-stats"><span><small>LOWEST</small><b>₹{historyMin?.toLocaleString("en-IN")}</b></span><span><small>MEDIAN</small><b>₹{historyMedian?.toLocaleString("en-IN")}</b></span><span><small>LATEST</small><b>₹{historyValues[historyValues.length - 1]?.toLocaleString("en-IN")}</b></span></div><p className="history-note">{pricePoints.length} dated observations · {Math.floor(historySpanDays)} days covered. This is a signal from saved records, not a guarantee of the merchant's live checkout price.</p></> : <p className="empty-admin">No dated prices are stored for this product yet. The detector needs at least 5 observations across 7 days before showing a stronger signal.</p>}</div>}
-    </div><div className="watchlist-saved"><span className="panel-kicker">YOUR SAVED ITEMS</span><h3>{watchRows.length} products watched</h3>{watchRows.length ? watchRows.map((row) => <div className="watch-row" key={row.id}><span>⌁</span><div><b>{row.products?.name ?? "Product"}</b><small>{row.target_price === null ? "No target price" : `Target ₹${Number(row.target_price).toLocaleString("en-IN")}`}</small></div></div>) : <p className="empty-admin">Your saved products will appear here.</p>}</div></div>;
+    </div><div className="watchlist-saved"><span className="panel-kicker">YOUR SAVED ITEMS</span><h3>{watchRows.length} products watched</h3>{watchRows.length ? watchRows.map((row) => <div className="watch-row" key={row.id}><span>⌁</span><div><b>{row.products?.slug ? <Link href={`/product/${row.products.slug}`}>{row.products.name}</Link> : (row.products?.name ?? "Product")}</b><small>{row.target_price === null ? "No target price" : `Target ₹${Number(row.target_price).toLocaleString("en-IN")}`}</small></div></div>) : <p className="empty-admin">Your saved products will appear here.</p>}</div></div>;
 }
