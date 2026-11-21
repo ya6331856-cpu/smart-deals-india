@@ -1,0 +1,94 @@
+/* Smart Deals India — unified premium light design system */
+:root {
+  color-scheme: light;
+  --bg:#f6faf7;
+  --surface:#ffffff;
+  --surface-2:#f0f7f2;
+  --surface-3:#e8f2eb;
+  --ink:#1d3328;
+  --muted:#62766a;
+  --muted-2:#839389;
+  --line:#e1ebe4;
+  --lime:#168257;
+  --lime-dark:#106744;
+  --orange:#c98228;
+  --pink:#d95d83;
+  --blue:#4288b5;
+  --shadow:0 18px 55px rgba(24,65,42,.09);
+  --radius:20px;
+  --brand-green:#168257;
+  --brand-green-deep:#106744;
+  --brand-ink:#1d3328;
+  --brand-muted:#62766a;
+  --brand-border:#e1ebe4;
+  --brand-soft:#edf7f1;
+}
+html,body { background:#f6faf7; color:#1d3328; }
+body { min-height:100vh; }
+::selection { background:#c9ead5; color:#123c28; }
+.top-ribbon { background:#eaf6ee; color:#37634b; border-bottom:1px solid #deede3; }
+.ribbon-pulse { background:#168257; }
+.site-header { background:rgba(255,255,255,.92); border-bottom:1px solid #e5eee8; box-shadow:0 5px 22px rgba(25,65,42,.035); }
+.desktop-nav a,.login-link { color:#53695c; }
+.desktop-nav a:hover,.login-link:hover { color:#168257; }
+.header-cta,.primary-button { background:#168257; color:#fff; box-shadow:0 7px 18px rgba(22,130,87,.17); }
+.header-cta:hover,.primary-button:hover { background:#106744; color:#fff; }
+.secondary-button,.light-button { border-color:#d8e6dc; color:#315541; background:#fff; }
+.secondary-button:hover { border-color:#168257; color:#106744; }
+.hero-shell { background:radial-gradient(ellipse at 80% 10%,rgba(22,130,87,.07),transparent 38%); }
+.hero-copy h1,.subpage-heading h1,.login-card h1 { color:#1d3328; }
+.hero-copy h1 em,.subpage-heading h1 em,.login-card h1 em,.trust-feature-main h2 em { color:#168257; }
+.hero-lede,.section-subtitle { color:#62766a; }
+.hero-proof,.hero-bottom-line { color:#718378; }
+.hero-bottom-line { border-color:#e1ebe4; }
+.eyebrow,.hero-kicker { color:#168257; }
+.page-container { color:#1d3328; }
+.category-tile,.deal-card,.login-card,.subpage-panel,.tool-card {
+  background:#fff;
+  color:#1d3328;
+  border-color:#e1ebe4;
+  box-shadow:0 8px 26px rgba(24,65,42,.055);
+}
+.category-tile:hover { border-color:#a9d6ba; background:#fbfefc; }
+.category-tile b,.deal-card h3,.section-heading-row h2,.deals-section h2 { color:#1d3328; }
+.category-tile small,.deal-description,.subpage-heading p:not(.eyebrow) { color:#687b70; }
+.quick-stats { border-color:#e1ebe4; }
+.quick-stats div { color:#62766a; }
+.quick-stats strong { color:#168257; }
+.filter-chip,.sort-select,.search-field {
+  background:#fff;
+  color:#315541;
+  border-color:#dce8df;
+}
+.filter-chip.active { background:#eaf6ee; border-color:#9bcdb0; color:#106744; }
+.search-field input { color:#1d3328; }
+.data-pill { border-color:#dce8df; color:#62766a; background:#fff; }
+.data-pill.is-live { color:#106744; border-color:#b7ddc4; background:#eff9f2; }
+.data-pill.is-demo { color:#9a5d20; border-color:#f0d7b6; background:#fff8ee; }
+.deals-section .section-heading-row h2 { color:#1d3328; }
+.trust-feature-main h2,.why-section h2 { color:#1d3328; }
+.site-footer { background:#edf5ef; border-top:1px solid #dfeae2; color:#53695c; }
+.footer-brand-block p,.footer-links a,.footer-bottom { color:#718378; }
+.footer-links strong { color:#1d3328; }
+.mobile-nav { background:rgba(255,255,255,.96); border-color:#e1ebe4; }
+.mobile-nav a { color:#65796d; }
+.mobile-nav a:hover,.mobile-nav a:focus-visible { color:#168257; }
+.store-primary { background:#168257; color:#fff; box-shadow:0 8px 20px rgba(22,130,87,.16); }
+.store-primary:hover { background:#106744; }
+.store-secondary { background:#fff; color:#315541; border:1px solid #dce8df; }
+.store-secondary:hover { border-color:#168257; color:#106744; }
+.store-hero-copy h1 em,.store-food-copy h2 em,.store-trust-row h2 em { color:#168257; }
+.store-tag { color:#168257; }
+.store-assurance { color:#63776b; }
+.store-category-card,.store-collection-card { box-shadow:0 8px 24px rgba(24,65,42,.055); }
+.store-category-card:hover,.store-collection-card:hover { box-shadow:0 16px 36px rgba(24,65,42,.1); }
+.store-section-head h2,.store-collection-copy h2,.store-food-copy h2,.store-trust-row h2 { color:#1d3328; }
+.store-section-head p,.store-collection-copy p,.store-food-copy p,.store-trust-row>p { color:#687b70; }
+.store-view-all,.store-collection-copy>a,.store-trust-row>a { color:#168257; }
+@media(max-width:700px) {
+  .site-header { background:rgba(255,255,255,.96); }
+  .mobile-nav { box-shadow:0 10px 34px rgba(19,55,35,.13); }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+}
