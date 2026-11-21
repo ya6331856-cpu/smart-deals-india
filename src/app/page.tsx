@@ -21,7 +21,7 @@ export default function HomePage() {
     <div className="storefront">
       <section className="store-hero">
         <div className="store-hero-copy">
-          <span className="store-tag"><i /> INDIA-WIDE DEAL DISCOVERY</span>
+          <span className="store-tag"><i /> SMART SHOPPING DISCOVERY</span>
           <h1>Good deals.<br /><em>Clear decisions.</em></h1>
           <p>Discover shopping offers, food savings and price drops in one place. Check the source, understand the offer and buy when it makes sense.</p>
           <div className="store-hero-actions">
@@ -30,7 +30,7 @@ export default function HomePage() {
           </div>
           <div className="store-assurance"><span><UiIcon name="check" size={12} /></span> Offer sources shown · No made-up price history</div>
         </div>
-        <div className="store-hero-art"><div className="radar-orbit radar-orbit-one" aria-hidden="true"><span /><i /><b /></div><div className="radar-orbit radar-orbit-two" aria-hidden="true"><span /></div><div className="radar-status"><i /> DEAL RADAR <b>SCANNING</b></div>
+        <div className="store-hero-art"><div className="radar-orbit radar-orbit-one" aria-hidden="true"><span /><i /><b /></div><div className="radar-orbit radar-orbit-two" aria-hidden="true"><span /></div><div className="radar-status"><i /> DEAL RADAR <b>PRICE INTELLIGENCE</b></div>
           <div className="hero-image-main"><img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=85" alt="Electronics and gadgets on a desk" fetchPriority="high" /></div>
           <div className="hero-image-float hero-float-one"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Wireless headphones" /><span>Tech finds</span></div>
           <div className="hero-image-float hero-float-two"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Minimal wristwatch" /><span>Smart picks</span></div>
